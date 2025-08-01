@@ -1,5 +1,7 @@
+'use client'
 import React from 'react'
 import { Typography, Button } from '@mui/material';
+
 const Banner = () => {
   return (
     <div className="relative w-screen h-[57vh] bg-[url('/images/banner-image.jpeg')] bg-cover bg-center bg-no-repeat text-left">
@@ -19,7 +21,6 @@ const Banner = () => {
         <Button variant='primary' sx={{marginTop: "6px"}}>
           Try HelloCity
         </Button>
-
       </div>
     </div>
   )
