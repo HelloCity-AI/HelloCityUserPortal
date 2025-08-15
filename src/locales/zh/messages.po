@@ -16,7 +16,7 @@ msgstr ""
 #. js-lingui-explicit-id
 #: src/app/auth/page.tsx:65
 msgid "Prev"
-msgstr "上一步"
+msgstr ""
 
 #. js-lingui-explicit-id
 #: src/app/auth/page.tsx:70
@@ -29,7 +29,32 @@ msgid "Next"
 msgstr "下一步======="
 
 #. js-lingui-explicit-id
+#: src/components/Banner.tsx:18
+#: src/components/Banner.tsx:45
+msgid "banner.title1"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Banner.tsx:21
+#: src/components/Banner.tsx:48
+msgid "banner.title2"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Banner.tsx:25
+#: src/components/Banner.tsx:52
+msgid "banner.paragraph"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Banner.tsx:32
+#: src/components/Banner.tsx:59
+msgid "banner.cta"
+msgstr ""
+
+#. js-lingui-explicit-id
 #: src/components/dropdownMenuOptions.tsx:11
+#: src/components/NavBar.tsx:58
 msgid "Profile"
 msgstr "个人资料"
 
@@ -50,43 +75,132 @@ msgstr "订阅管理"
 
 #. js-lingui-explicit-id
 #: src/components/dropdownMenuOptions.tsx:39
+#: src/components/NavBar.tsx:61
 msgid "Logout"
 msgstr "登出>>>>>>> main======="
 
 #. js-lingui-explicit-id
+#: src/components/InputBox.tsx:72
+msgid "{field} is required."
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:19
+msgid "Please enter your email"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:21
+msgid "Please enter your password"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:23
+msgid "Please repeat your password"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:25
+msgid "Please enter your name"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:27
+msgid "Please enter your phone number"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:29
+msgid "Please enter value"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:56
+msgid "validation.nameError"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:60
+msgid "validation.emailError"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:65
+msgid "validation.passwordError"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:72
+msgid "validation.repeatPasswordError"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/InputUtils.tsx:76
+msgid "validation.phoneError"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/NavBar.tsx:36
 #: src/components/NavBar.tsx:87
 msgid "Home"
 msgstr "首页"
 
 #. js-lingui-explicit-id
+#: src/components/NavBar.tsx:39
 #: src/components/NavBar.tsx:90
 msgid "Chat"
 msgstr "聊天"
 
 #. js-lingui-explicit-id
+#: src/components/NavBar.tsx:42
 #: src/components/NavBar.tsx:93
 msgid "FAQ"
 msgstr "常见问题"
 
 #. js-lingui-explicit-id
+#: src/components/NavBar.tsx:45
 #: src/components/NavBar.tsx:96
 msgid "Check Items"
 msgstr "检查项目"
 
 #. js-lingui-explicit-id
+#: src/components/NavBar.tsx:50
+#: src/components/NavBar.tsx:101
+msgid "EN"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/NavBar.tsx:50
+#: src/components/NavBar.tsx:101
+msgid "CN"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/NavBar.tsx:64
+msgid "Language"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/NavBar.tsx:69
 #: src/components/NavBar.tsx:121
 msgid "Sign In"
 msgstr "登录"
 
 #. js-lingui-explicit-id
+#: src/components/NavBar.tsx:74
 #: src/components/NavBar.tsx:127
 msgid "Try HelloCity"
 msgstr "试用 HelloCity"
 
 #. js-lingui-explicit-id
+#: src/components/NavBar.tsx:124
+msgid "Sign Up"
+msgstr ""
+
+#. js-lingui-explicit-id
 #: src/components/ProfileImageUploader.tsx:26
 msgid "file.upload.error"
-msgstr "文件大小或类型无效。请上传5MB以下的图片文件"
+msgstr ""
 
 #. js-lingui-explicit-id
 #: src/components/ProfileImageUploader.tsx:34
@@ -117,6 +231,46 @@ msgstr "添加头像"
 #: src/components/ProfileImageUploader.tsx:131
 msgid "profile.avatar.remove"
 msgstr "删除照片"
+
+#. js-lingui-explicit-id
+#: src/stories/DatePicker.stories.tsx:26
+msgid "Pick a date"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/stories/InputBox.stories.tsx:33
+msgid "Name"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/stories/InputBox.stories.tsx:46
+msgid "Phone"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/stories/InputBox.stories.tsx:67
+msgid "Please enter a valid email address."
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/stories/InputBox.stories.tsx:82
+msgid "Email"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/stories/InputBox.stories.tsx:99
+msgid "Password"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/stories/InputBox.stories.tsx:106
+msgid "Repeat Password"
+msgstr ""
+
+#. js-lingui-explicit-id
+#: src/stories/DatePicker.stories.tsx:26
+#~ msgid "datepicker.label"
+#~ msgstr ""
 
 #~ msgid "Email"
 #~ msgstr "电子邮件"

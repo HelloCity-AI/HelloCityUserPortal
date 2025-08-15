@@ -6,8 +6,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import styles from './InputBox.module.scss';
-import { validationRules, getDefaultPlaceholder, getInputType } from './utils';
+import styles from '@/components/InputBox.module.scss';
+import { validationRules, getDefaultPlaceholder, getInputType } from '@/components/InputUtils';
+import { i18n } from '@/i18n';
 
 export type InputVariant = 'primary' | 'secondary' | 'tertiary';
 export type InputFieldType = 'name' | 'email' | 'password' | 'repeatPassword' | 'phone';
@@ -15,16 +16,20 @@ export type InputFieldType = 'name' | 'email' | 'password' | 'repeatPassword' | 
 export interface InputBoxProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  label: string;
+  label: React.ReactNode;
   fieldType: InputFieldType;
   placeholder?: string;
   variant?: InputVariant;
   disabled?: boolean;
   required?: boolean;
-  errorMessage?: string;
+  errorMessage?: React.ReactNode;
   autoComplete?: boolean;
   originalPassword?: string;
 }
+
+type TransLike = React.ReactElement<{ id?: string }>;
+const isTransLike = (x: unknown): x is TransLike =>
+  React.isValidElement(x) && typeof (x as any).props?.id === 'string';
 
 const InputBox: React.FC<InputBoxProps> = ({
   value,
@@ -43,7 +48,8 @@ const InputBox: React.FC<InputBoxProps> = ({
   const [showPassword, setShowPassword] = useState(false);
   const [touched, setTouched] = useState(false);
 
-  const normalizedFieldType = fieldType || label.toLowerCase().replace(/\s/g, '');
+  const normalizedFieldType =
+    fieldType || (typeof label === 'string' ? label.toLowerCase().replace(/\s/g, '') : '');
   const inputType =
     normalizedFieldType === 'password' || normalizedFieldType === 'repeatPassword'
       ? showPassword
@@ -51,8 +57,10 @@ const InputBox: React.FC<InputBoxProps> = ({
         : 'password'
       : getInputType(normalizedFieldType);
   const finalPlaceholder = placeholder ?? getDefaultPlaceholder(normalizedFieldType);
-  const maxLength = 20;
   const inputId = `input-${normalizedFieldType}`;
+
+  const labelText: string =
+    typeof label === 'string' ? label : (isTransLike(label) && label.props.id) || '';
 
   useEffect(() => {
     if (!touched) return;
@@ -60,39 +68,52 @@ const InputBox: React.FC<InputBoxProps> = ({
     const rule = validationRules[normalizedFieldType];
     let currentError = '';
 
-    if (!value.trim()) {
-      if (required) {
-        currentError = `${label} is required.`;
-      }
-    } else if (rule) {
-      const isValid =
-        normalizedFieldType === 'repeatPassword'
-          ? rule.validate(value, originalPassword ?? '')
-          : rule.validate(value);
-
-      if (!isValid) {
-        currentError = rule.error;
-      }
+    if (!value.trim() && required) {
+      currentError = i18n._('{field} is required.', { field: labelText });
+      setErrorMessage(currentError);
+      return;
     }
 
+    if (!rule) return;
+
+    const isValid =
+      normalizedFieldType === 'repeatPassword'
+        ? rule.validate(value, originalPassword ?? '')
+        : rule.validate(value);
+
+    if (isValid) {
+      setErrorMessage('');
+      return;
+    }
+
+    const err: unknown = (rule as { error?: unknown }).error;
+
+    if (typeof err === 'string') {
+      currentError = i18n._(err);
+      setErrorMessage(currentError);
+      return;
+    }
+
+    if (isTransLike(err)) {
+      currentError = i18n._(err.props.id as string);
+      setErrorMessage(currentError);
+      return;
+    }
+
+    currentError = String(err ?? '');
     setErrorMessage(currentError);
-  }, [value, touched, required, originalPassword, label, normalizedFieldType]);
+  }, [value, touched, required, originalPassword, labelText, normalizedFieldType]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!touched) setTouched(true);
     onChange(e);
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
-
   return (
     <div className={`${styles['input-box-wrapper']} ${variant}`}>
       <TextField
         id={inputId}
-        fullWidth
-        label={label.charAt(0).toUpperCase() + label.slice(1)}
+        label={label}
         type={inputType}
         value={value}
         onChange={handleChange}
@@ -104,7 +125,7 @@ const InputBox: React.FC<InputBoxProps> = ({
         required={required}
         inputProps={{
           id: inputId,
-          maxLength,
+          maxLength: 20,
           autoComplete: autoComplete ? 'on' : 'off',
           name: normalizedFieldType,
         }}
@@ -114,7 +135,7 @@ const InputBox: React.FC<InputBoxProps> = ({
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                      onClick={togglePasswordVisibility}
+                      onClick={() => setShowPassword((prev) => !prev)}
                       edge="end"
                       aria-label="toggle password visibility"
                     >

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import InputBox from '../src/components/InputBox/InputBox';
+import InputBox from '@/components/InputBox';
 
 describe('InputBox component', () => {
   it('Renders with label and placeholder', () => {
@@ -43,17 +43,15 @@ describe('InputBox component', () => {
 
 describe('InputBox validation', () => {
   test('Shows required error when phone input is empty', () => {
+    const props = {
+      label: 'Phone',
+      required: true,
+      fieldType: 'phone' as const,
+    };
+
     const Wrapper = () => {
       const [val, setVal] = React.useState('123');
-      return (
-        <InputBox
-          label="Phone"
-          value={val}
-          onChange={(e) => setVal(e.target.value)}
-          required
-          fieldType="phone"
-        />
-      );
+      return <InputBox value={val} onChange={(e) => setVal(e.target.value)} {...props} />;
     };
 
     render(<Wrapper />);
