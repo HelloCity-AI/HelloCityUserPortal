@@ -3,8 +3,16 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { act, screen, within, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Dropdown from '@/components/Dropdown';
-import renderWithTheme from './utils/renderWithTheme';
+import { TestProviders } from './utils/TestWrapper';
+import { render } from '@testing-library/react';
 import type { DropdownOptionProps } from '@/components/Dropdown';
+
+// Mock UserLabelforMidTerm component
+jest.mock('@/components/UserLabelforMidTerm', () => {
+  return function MockUserLabelforMidTerm() {
+    return <div data-testid="user-label">Test User</div>;
+  };
+});
 
 const fireMenuItem = jest.fn();
 const baseTestOptions: DropdownOptionProps[] = [
@@ -28,8 +36,10 @@ const testOptionsWithoutIcon: DropdownOptionProps[] = [
 ];
 
 const renderDropdown = (props = {}) => {
-  return renderWithTheme(
-    <Dropdown anchorElContent={<span>open</span>} dropdownOptions={baseTestOptions} {...props} />,
+  return render(
+    <TestProviders>
+      <Dropdown anchorElContent={<span>open</span>} dropdownOptions={baseTestOptions} {...props} />
+    </TestProviders>,
   );
 };
 
@@ -86,7 +96,7 @@ describe('DropDown component', () => {
       await act(async () => {
         await new Promise((resolve) => setTimeout(resolve, 10));
       });
-      expect(await screen.findByText(/Leon/i)).toBeInTheDocument();
+      expect(await screen.findByText(/Test User/i)).toBeInTheDocument();
     });
 
     it('Applied centered text align when textAlignCenter = true', async () => {
@@ -115,11 +125,12 @@ describe('DropDown component', () => {
   });
 
   describe('UX Interactions', () => {
-    beforeEach(async () => {
-      await renderDropdownAndOpenMenu({ dropdownOptions: testOptionsWithoutIcon });
+    beforeEach(() => {
+      fireMenuItem.mockClear();
     });
 
     it('Onclick fired and menu closes after clicking an item', async () => {
+      await renderDropdownAndOpenMenu({ dropdownOptions: testOptionsWithoutIcon });
       expect(await screen.findByRole('menu')).toBeInTheDocument();
 
       await userEvent.click(screen.getByText('Profile'));
@@ -132,6 +143,7 @@ describe('DropDown component', () => {
     });
 
     it('Menu closes after clicking outside', async () => {
+      await renderDropdownAndOpenMenu({ dropdownOptions: testOptionsWithoutIcon });
       expect(await screen.findByRole('menu')).toBeInTheDocument();
 
       const backdrop = document.querySelector('.MuiBackdrop-root');
@@ -145,6 +157,7 @@ describe('DropDown component', () => {
     });
 
     it('Menu closes after press esc', async () => {
+      await renderDropdownAndOpenMenu({ dropdownOptions: testOptionsWithoutIcon });
       expect(await screen.findByRole('menu')).toBeInTheDocument();
 
       await userEvent.keyboard('{Escape}');

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from '@/store';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { I18nProvider } from '@/contexts/I18nProvider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -26,13 +28,17 @@ export const withTheme = (ui: React.ReactNode) => {
   return <ThemeProvider theme={testTheme}>{ui}</ThemeProvider>;
 };
 
-// This is a wrapper that provides both MUI theme and language context for testing purposes.
+// This is a wrapper that provides both MUI theme, Redux store, and language context for testing purposes.
 export const TestProviders: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <ThemeProvider theme={testTheme}>
-      <LanguageProvider>
-        <I18nProvider>{children}</I18nProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={testTheme}>
+        <LanguageProvider>
+          <I18nProvider initialLocale="en" initialMessages={mockMessages}>
+            {children}
+          </I18nProvider>
+        </LanguageProvider>
+      </ThemeProvider>
+    </Provider>
   );
 };

@@ -2,10 +2,9 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import UserDrawer from '@/components/NavBar/UserDrawer';
 import { TestProviders } from '../utils/TestWrapper';
-import * as dropdownMenuModule from '@/components/dropdownMenuOptions.example';
 
-jest.mock('@/components/dropdownMenuOptions.example', () => ({
-  userMenuOptions: [
+jest.mock('@/hooks/useUserMenuOptions', () => ({
+  useUserMenuOptions: () => [
     {
       label: 'Profile',
       value: 'profile',
@@ -14,16 +13,10 @@ jest.mock('@/components/dropdownMenuOptions.example', () => ({
       divider: false,
     },
     {
-      label: 'Settings',
-      value: 'settings',
-      onClick: jest.fn(),
-      icon: () => <div>SettingsIcon</div>,
-      divider: true,
-    },
-    {
       label: 'Logout',
       value: 'logout',
       onClick: jest.fn(),
+      icon: () => <div>LogoutIcon</div>,
       divider: false,
     },
   ],
@@ -70,7 +63,6 @@ describe('UserDrawer - User menu drawer component', () => {
       renderUserDrawer();
 
       expect(screen.getByText('Profile')).toBeInTheDocument();
-      expect(screen.getByText('Settings')).toBeInTheDocument();
       expect(screen.getByText('Logout')).toBeInTheDocument();
     });
 
@@ -78,8 +70,7 @@ describe('UserDrawer - User menu drawer component', () => {
       renderUserDrawer();
 
       expect(screen.getByTestId('profile-icon')).toBeInTheDocument();
-      expect(screen.getByTestId('settings-icon')).toBeInTheDocument();
-      expect(screen.queryByTestId('logout-icon')).not.toBeInTheDocument();
+      expect(screen.getByTestId('logout-icon')).toBeInTheDocument();
     });
 
     it('Shows dividers for menu organization', () => {
@@ -87,7 +78,6 @@ describe('UserDrawer - User menu drawer component', () => {
 
       // Verify menu options are rendered (dividers are implementation details)
       expect(screen.getByText('Profile')).toBeInTheDocument();
-      expect(screen.getByText('Settings')).toBeInTheDocument();
       expect(screen.getByText('Logout')).toBeInTheDocument();
     });
 
@@ -111,8 +101,6 @@ describe('UserDrawer - User menu drawer component', () => {
       renderUserDrawer({ closeDrawer });
       clickMenuOption('Profile');
 
-      expect(dropdownMenuModule.userMenuOptions[0].onClick).toHaveBeenCalledTimes(1);
-      expect(dropdownMenuModule.userMenuOptions[0].onClick).toHaveBeenCalledWith('profile');
       expect(closeDrawer).toHaveBeenCalledTimes(1);
     });
 

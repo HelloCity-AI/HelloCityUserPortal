@@ -6,6 +6,8 @@ import useIsMobile from '@/hooks/useIsMobile';
 import DesktopNavBar from './DesktopNavBar';
 import MobileNavBar from './MobileNavBar';
 import { type NavConfig } from './navConfig';
+import { useSelector } from 'react-redux';
+import type { RootState } from '@/store';
 
 export interface NavBarProps {
   navConfig: NavConfig;
@@ -14,9 +16,11 @@ export interface NavBarProps {
 
 const NavBar = () => {
   // to be replaced when user slice is setup
-  const [hasSignedIn, _setHasSignedIn] = useState<boolean>(false);
   const navConfig = useNavigation();
   const isMobile = useIsMobile();
+  const userData = useSelector((state: RootState) => state.user.userData);
+  const hasSignedIn = userData !== null;
+  console.log(hasSignedIn);
 
   return isMobile ? (
     <MobileNavBar hasSignedIn={hasSignedIn} navConfig={navConfig} />

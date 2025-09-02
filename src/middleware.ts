@@ -29,7 +29,8 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/api/') ||
     pathname.startsWith('/_next/') ||
     pathname === '/icon' ||
-    pathname.startsWith('/icon.')
+    pathname.startsWith('/icon.') ||
+    pathname.startsWith('/images/')
   ) {
     return await auth0.middleware(request);
   }

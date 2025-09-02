@@ -10,7 +10,7 @@ export const useTryHelloCity = () => {
 
   return {
     // href: `/${language}`,
-    // for debug purpose,
+    // for debug& test purpose,
     href: '/auth/logout',
     label: <Trans id="NavBar.Try HelloCity" message="Try HelloCity" />,
   };

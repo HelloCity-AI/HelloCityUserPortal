@@ -9,7 +9,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
-import { userMenuOptions } from '../dropdownMenuOptions.example';
+import { useUserMenuOptions } from '@/hooks/useUserMenuOptions';
 import UserProfileCard from '../UserLabel';
 
 interface UserDrawerProps extends DrawerProps {
@@ -22,6 +22,7 @@ const UserDrawer: React.FC<UserDrawerProps> = ({
   className = 'z-40',
   ...drawerProps
 }) => {
+  const userMenuOptions = useUserMenuOptions();
   // args type to be updated
   const handleClick = (menuAction: (value: string) => void, value: string) => {
     menuAction(value);

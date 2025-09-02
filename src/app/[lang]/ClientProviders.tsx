@@ -1,6 +1,8 @@
 'use client';
 
 import type { ReactNode } from 'react';
+import { Provider } from 'react-redux';
+import store from '@/store';
 import { I18nProvider } from '@/contexts/I18nProvider';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import Box from '@mui/material/Box';
@@ -15,13 +17,15 @@ type Props = {
 
 export default function ClientProviders({ children, lang, messages }: Props) {
   return (
-    <I18nProvider initialLocale={lang} initialMessages={messages}>
-      <LanguageProvider>
-        <Box component="header">
-          <NavBar />
-        </Box>
-        <Box component="main">{children}</Box>
-      </LanguageProvider>
-    </I18nProvider>
+    <Provider store={store}>
+      <I18nProvider initialLocale={lang} initialMessages={messages}>
+        <LanguageProvider>
+          <Box component="header">
+            <NavBar />
+          </Box>
+          <Box component="main">{children}</Box>
+        </LanguageProvider>
+      </I18nProvider>
+    </Provider>
   );
 }

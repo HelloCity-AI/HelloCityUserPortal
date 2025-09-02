@@ -8,6 +8,9 @@ import { createUser } from '@/api/userApi';
 import { Trans } from '@lingui/react';
 import PersonalInfo from './PersonalInfo';
 import { AxiosError } from 'axios';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/store/slices/user';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
   const { user, isLoading } = useUser();
@@ -15,7 +18,8 @@ const Page = () => {
     ...defaultUser,
     userId: '', // This will be used as username
   });
-
+  const dispatch = useDispatch();
+  const router = useRouter();
   // Set Email after Auth0 user information is loaded
   useEffect(() => {
     if (user?.email) {
@@ -46,9 +50,13 @@ const Page = () => {
     try {
       console.log('Form Sent: ', formData);
       const response = await createUser(formData);
+      const userData = await response.data?.data;
       localStorage.setItem('userData', JSON.stringify(response.data?.data));
       // After successful creation, can redirect to homepage or other pages
-      window.location.href = '/';
+      if (userData) {
+        dispatch(setUser(userData));
+        router.replace('/');
+      }
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         console.error('Error:', error.response?.data || error.message);

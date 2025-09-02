@@ -451,7 +451,7 @@ msgid "NavBar.Home"
 msgstr "首页"
 
 #. js-lingui-explicit-id
-#: src/app/[lang]/create-user-profile/page.tsx:103
+#: src/app/[lang]/create-user-profile/page.tsx:111
 msgid "I'm all set"
 msgstr "我准备好了"
 
@@ -462,6 +462,7 @@ msgstr "文件大小或类型无效。请上传5MB以下的图片文件"
 
 #. js-lingui-explicit-id
 #: src/components/dropdownMenuOptions.example.tsx:39
+#: src/hooks/useUserMenuOptions.tsx:22
 msgid "Logout"
 msgstr "登出"
 
@@ -470,6 +471,7 @@ msgstr "登出"
 
 #. js-lingui-explicit-id
 #: src/components/dropdownMenuOptions.example.tsx:11
+#: src/hooks/useUserMenuOptions.tsx:15
 msgid "Profile"
 msgstr "个人资料"
 
@@ -490,7 +492,7 @@ msgstr "设置"
 
 #. Sign In button label
 #. js-lingui-explicit-id
-#: src/components/NavBar/DesktopNavBar.tsx:138
+#: src/components/NavBar/DesktopNavBar.tsx:139
 #: src/components/NavBar/MobileNavBar.tsx:123
 msgid "NavBar.Sign In"
 msgstr "登录"

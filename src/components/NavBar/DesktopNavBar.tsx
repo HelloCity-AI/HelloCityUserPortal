@@ -11,9 +11,9 @@ import { Trans } from '@lingui/react';
 import { twMerge } from 'tailwind-merge';
 import { useTryHelloCity } from '@/hooks/useTryHelloCity';
 import { Dropdown } from '..';
-import { userMenuOptions } from '../dropdownMenuOptions.example';
 import SectionContent from '../HomepageSections/SectionContent';
 import type { NavBarProps } from './NavBar';
+import { useUserMenuOptions } from '@/hooks/useUserMenuOptions';
 
 const SCROLL_THRESHOLD = 20;
 const BASE_CLASSES = 'fixed left-0 top-0 z-50 w-[100vw] flex items-center py-2';
@@ -22,8 +22,9 @@ const TRANSITION_CLASSES = 'transition-all duration-300 ease-in-out';
 const DesktopNavBar: React.FC<NavBarProps> = ({ hasSignedIn, navConfig }) => {
   const [hasBgColor, setHasBgColor] = useState<boolean>(false);
   const { href: tryHelloCityHref, label: tryHelloCityLabel } = useTryHelloCity();
-  const scrollYRef = useRef(0);
+  const userMenuOptions = useUserMenuOptions();
 
+  const scrollYRef = useRef(0);
   const { currentLanguage, logo, navItems } = navConfig;
   const backgroundClasses = hasBgColor ? 'bg-white shadow-md' : 'bg-transparent shadow-none';
 
@@ -115,7 +116,7 @@ const DesktopNavBar: React.FC<NavBarProps> = ({ hasSignedIn, navConfig }) => {
           anchorElContent={
             <Avatar
               sx={{ width: 40, height: 40, cursor: 'pointer' }}
-              src="/images/banner-image.jpeg"
+              src=""
               alt="User Avatar"
               role="button"
               aria-label="User menu"

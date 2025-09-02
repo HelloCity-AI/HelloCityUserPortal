@@ -6,7 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import UserProfileCard from './UserLabel';
+import UserProfileCardForMidTerm from './UserLabelforMidTerm';
 import type { ReactNode } from 'react';
 
 interface DropdownProps {
@@ -42,7 +42,6 @@ const DropDown: React.FC<DropdownProps> = ({
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [hasRenderedOnce, setHasRenderedOnce] = useState(false);
-
   const open = Boolean(anchorEl);
 
   const handleClose = () => {
@@ -54,7 +53,7 @@ const DropDown: React.FC<DropdownProps> = ({
     if (open && !hasRenderedOnce) {
       const timer = setTimeout(() => {
         setHasRenderedOnce(true);
-      }, 0);
+      }, 10);
       return () => clearTimeout(timer);
     }
   }, [open, hasRenderedOnce]);
@@ -105,7 +104,7 @@ const DropDown: React.FC<DropdownProps> = ({
         {/* User label area, will update when userprofile global statement is ready */}
         {showUserLabel && layout === 'vertical' && (
           <MenuItem sx={{ minHeight: 'auto', alignItems: 'flex-start' }}>
-            <UserProfileCard AvatarImg={'/images/banner-image.jpeg'} UserName="Leon" />
+            <UserProfileCardForMidTerm />
           </MenuItem>
         )}
         {showUserLabel && layout === 'vertical' && <Divider />}
